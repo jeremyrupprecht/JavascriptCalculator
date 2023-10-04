@@ -75,6 +75,11 @@ html, body {
     align-items : center;
 }
 
+.button:hover {
+    background-color: rgb(17, 17, 17);
+    transform: translate(0px, -3px);
+}
+
 .zeroButton {
     grid-column-start: 1;
     grid-column-end: 3;
