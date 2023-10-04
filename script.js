@@ -46,7 +46,26 @@ function saveAndDisplayDigit(digit) {
     digitDisplay.textContent = operand;
 }
 
+function divideByZero() {
+    firstDigit = true;
+    workingWithOp2 = false;
+    digitDisplay.textContent = "Can't Do That";
+    // Upon dividing by 0, disable all buttons except the digits, clear,
+    // backspace and equals
+    /*
+    buttonsToDisable = document.querySelectorAll(".disableUponDivideBy0");
+    console.log(buttonsToDisable);
+    buttonsToDisable.forEach((button) => {
+        button.disabled = true;
+    });
+    */
+}
+
 function calculateAndDisplayResult() {
+    if (operand === "/"  && op2 === "0") {
+        divideByZero();
+        return 
+    }
     result = operate(+op1, operand, +op2);
     /* 
     2 cases at this point:
