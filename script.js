@@ -62,10 +62,30 @@ function calculateAndDisplayResult() {
                  any operator will set workingWithOp2 back to true so that 
                  new input is saved into op2, with this result in op1
     */
-    op1 = result;
+    op1 = result.toString();
     firstDigit = true;
     workingWithOp2 = false;
     digitDisplay.textContent = result;
+}
+
+function backSpaceDigit() {
+    let operand = workingWithOp2 ? op2 : op1;
+    if (operand.length > 1) {
+        // remove last/rightmost character from the string
+        operand = operand.slice(0, -1);
+        console.log("SLICE: " + operand);
+    } else {
+        // Note: not touching workingWithOp2 here, either operand can be
+        // backspaced to 0 without affecting anything else
+        operand = "0";
+        firstDigit = true;
+    }
+    if (!workingWithOp2) {
+        op1 = operand;
+    } else {
+        op2 = operand;
+    }
+    digitDisplay.textContent = operand;
 }
 
 function switchSign() {
@@ -115,6 +135,7 @@ const equalsBtn = document.getElementById("=");
 equalsBtn.addEventListener(('click'), () => calculateAndDisplayResult());
 
 const backspaceBtn = document.getElementById("B");
+backspaceBtn.addEventListener(('click'), () => backSpaceDigit());
 
 const switchSignBtn = document.getElementById("+/-");
 switchSignBtn.addEventListener(('click'), () => switchSign());
