@@ -28,35 +28,46 @@ function operate(op1, operand, op2) {
 }
 
 function saveAndDisplayDigit(digit) {
-    // Digits replace zero displayed by itself, otherwise concatenate them 
-    // to build numbers
-    if (+op1 === 0) {
-        op1 = digit;
+    let operand = workingWithOp2 ? op2 : op1;
+    // Default calculator state is zero displayed by itself, this is 
+    // replaced by the first entered digit, then concatenate 
+    // digits to build numbers
+    if (+operand === 0) {
+        operand = digit;
     } else {
-        op1 += digit;
+        operand += digit;
     }
-    digitDisplay.textContent = +op1;
-    // put logic for putting a number into op2 here
-    
+    // update corrct operand
+    if (!workingWithOp2) {
+        op1 = operand;
+    } else {
+        op2 = operand;
+    }
+    digitDisplay.textContent = operand;
+    console.log(operand);
+}
+
+function calculateResult() {
+
 }
 
 let op1 = "0";
 let operand = "+";
 let op2 = "0";
+let workingWithOp2 = false;
 
 const digitDisplay = document.getElementById("digitDisplay");
 
 let digitButtons = document.querySelectorAll(".digit");
 digitButtons.forEach((button) => {
-    button.addEventListener('click', () => {
-        saveAndDisplayDigit(button.id);
-    });
+    button.addEventListener('click', () => saveAndDisplayDigit(button.id));
 });
 
 let operatorButtons = document.querySelectorAll(".operator");
 operatorButtons.forEach((button) => {
     button.addEventListener('click', () => {
-        console.log(button);
+        operand = button.id;
+        workingWithOp2 = true;
     });
 });
 
@@ -64,12 +75,18 @@ const clear = document.getElementById("C");
 clear.addEventListener('click', () => {
     op1 = "0";
     op2 = "0";
+    operand = "+";
     digitDisplay.textContent = "0";
 });
-const backspace = document.getElementById("B");
-const switchSign = document.getElementById("+/-");
-const dot = document.getElementById(".");
-const equals = document.getElementById("=");
 
+const equals = document.getElementById("=");
+equals.addEventListener(('click'), () => calculateResult());
+
+const backspace = document.getElementById("B");
+
+const switchSign = document.getElementById("+/-");
+switchSign.addEventListener(('click'), () => console.log("testing"));
+
+const dot = document.getElementById(".");
 
 
