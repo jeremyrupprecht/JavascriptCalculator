@@ -29,32 +29,36 @@ function operate(op1, operand, op2) {
 
 function saveAndDisplayDigit(digit) {
     let operand = workingWithOp2 ? op2 : op1;
-    // Default calculator state is zero displayed by itself, this is 
-    // replaced by the first entered digit, then concatenate 
-    // digits to build numbers
-    if (+operand === 0) {
+    // Default calculator state is zero displayed by itself, this is replaced
+    // by the first entered digit, after this digit, concatenate digits to
+    // build numbers
+    if (firstDigit) {
         operand = digit;
+        firstDigit = false;
     } else {
         operand += digit;
     }
-    // update corrct operand
+    // Update corrct operand
     if (!workingWithOp2) {
         op1 = operand;
     } else {
         op2 = operand;
     }
     digitDisplay.textContent = operand;
-    console.log(operand);
 }
 
-function calculateResult() {
-
+function calculateAndDisplayResult() {
+    result = operate(+op1, operand, +op2);
+    // save result for next calculation
+    op1 = result;
+    digitDisplay.textContent = result
 }
 
 let op1 = "0";
 let operand = "+";
 let op2 = "0";
 let workingWithOp2 = false;
+let firstDigit = true;
 
 const digitDisplay = document.getElementById("digitDisplay");
 
@@ -68,6 +72,7 @@ operatorButtons.forEach((button) => {
     button.addEventListener('click', () => {
         operand = button.id;
         workingWithOp2 = true;
+        firstDigit = true;
     });
 });
 
@@ -76,11 +81,13 @@ clear.addEventListener('click', () => {
     op1 = "0";
     op2 = "0";
     operand = "+";
+    workingWithOp2 = false;
+    firstDigit = true;
     digitDisplay.textContent = "0";
 });
 
 const equals = document.getElementById("=");
-equals.addEventListener(('click'), () => calculateResult());
+equals.addEventListener(('click'), () => calculateAndDisplayResult());
 
 const backspace = document.getElementById("B");
 
