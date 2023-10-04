@@ -38,7 +38,6 @@ function saveAndDisplayDigit(digit) {
     } else {
         operand += digit;
     }
-    // Update corrct operand
     if (!workingWithOp2) {
         op1 = operand;
     } else {
@@ -52,7 +51,7 @@ function calculateAndDisplayResult() {
     /* 
     2 cases at this point:
         1. The user wants to make a completely new calculation --> press any digit
-                -firstDigit and workingWithOp2 flags are reset
+                -firstDigit and workingWithOp2 flags are reset, meaning:
                 -pressing any digit clears this result
                 -any new digits are saved into the cleared op1
         OR
@@ -60,13 +59,24 @@ function calculateAndDisplayResult() {
         2. The user wants to use this result --> press any operator
                 -this result is saved in op1
                 -firstDigit and workingWithOp2 flags are reset BUT pressing 
-                 any operator will set workingWithOp2 to true so that 
+                 any operator will set workingWithOp2 back to true so that 
                  new input is saved into op2, with this result in op1
     */
     op1 = result;
     firstDigit = true;
     workingWithOp2 = false;
     digitDisplay.textContent = result;
+}
+
+function switchSign() {
+    let operand = workingWithOp2 ? op2 : op1;
+    operand *= -1;
+    if (!workingWithOp2) {
+        op1 = operand;
+    } else {
+        op2 = operand;
+    }
+    digitDisplay.textContent = operand;
 }
 
 let op1 = "0";
@@ -77,13 +87,13 @@ let firstDigit = true;
 
 const digitDisplay = document.getElementById("digitDisplay");
 
-let digitButtons = document.querySelectorAll(".digit");
-digitButtons.forEach((button) => {
+let digitBtns = document.querySelectorAll(".digit");
+digitBtns.forEach((button) => {
     button.addEventListener('click', () => saveAndDisplayDigit(button.id));
 });
 
-let operatorButtons = document.querySelectorAll(".operator");
-operatorButtons.forEach((button) => {
+let operatorBtns = document.querySelectorAll(".operator");
+operatorBtns.forEach((button) => {
     button.addEventListener('click', () => {
         operand = button.id;
         workingWithOp2 = true;
@@ -91,8 +101,8 @@ operatorButtons.forEach((button) => {
     });
 });
 
-const clear = document.getElementById("C");
-clear.addEventListener('click', () => {
+const clearBtn = document.getElementById("C");
+clearBtn.addEventListener('click', () => {
     op1 = "0";
     op2 = "0";
     operand = "+";
@@ -101,14 +111,14 @@ clear.addEventListener('click', () => {
     digitDisplay.textContent = "0";
 });
 
-const equals = document.getElementById("=");
-equals.addEventListener(('click'), () => calculateAndDisplayResult());
+const equalsBtn = document.getElementById("=");
+equalsBtn.addEventListener(('click'), () => calculateAndDisplayResult());
 
-const backspace = document.getElementById("B");
+const backspaceBtn = document.getElementById("B");
 
-const switchSign = document.getElementById("+/-");
-switchSign.addEventListener(('click'), () => console.log("testing"));
+const switchSignBtn = document.getElementById("+/-");
+switchSignBtn.addEventListener(('click'), () => switchSign());
 
-const dot = document.getElementById(".");
+const dotBtn = document.getElementById(".");
 
 
