@@ -49,9 +49,24 @@ function saveAndDisplayDigit(digit) {
 
 function calculateAndDisplayResult() {
     result = operate(+op1, operand, +op2);
-    // save result for next calculation
+    /* 
+    2 cases at this point:
+        1. The user wants to make a completely new calculation --> press any digit
+                -firstDigit and workingWithOp2 flags are reset
+                -pressing any digit clears this result
+                -any new digits are saved into the cleared op1
+        OR
+
+        2. The user wants to use this result --> press any operator
+                -this result is saved in op1
+                -firstDigit and workingWithOp2 flags are reset BUT pressing 
+                 any operator will set workingWithOp2 to true so that 
+                 new input is saved into op2, with this result in op1
+    */
     op1 = result;
-    digitDisplay.textContent = result
+    firstDigit = true;
+    workingWithOp2 = false;
+    digitDisplay.textContent = result;
 }
 
 let op1 = "0";
