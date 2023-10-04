@@ -28,7 +28,7 @@ html, body {
     border-radius: 10px;
 }
 
-#digitDisplay {
+#digitDisplayArea {
     height: 200px;
     width: 500px;
     background-color: black;
@@ -39,7 +39,7 @@ html, body {
     align-items: center;
 }
 
-#digits {
+#digitDisplay {
     color: white;
     font-size: 50px;
     margin-right: 20px;
