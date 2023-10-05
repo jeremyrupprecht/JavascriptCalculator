@@ -47,18 +47,12 @@ function saveAndDisplayDigit(digit) {
 }
 
 function divideByZero() {
+    op1 = "0";
+    operand = "+";
+    op2 = "0";
     firstDigit = true;
     workingWithOp2 = false;
     digitDisplay.textContent = "Can't Do That";
-    // Upon dividing by 0, disable all buttons except the digits, clear,
-    // backspace and equals
-    /*
-    buttonsToDisable = document.querySelectorAll(".disableUponDivideBy0");
-    console.log(buttonsToDisable);
-    buttonsToDisable.forEach((button) => {
-        button.disabled = true;
-    });
-    */
 }
 
 function calculateAndDisplayResult() {
