@@ -65,12 +65,12 @@ function calculateAndDisplayResult() {
     2 cases at this point:
         1. The user wants to make a completely new calculation --> press any digit
                 -firstDigit and workingWithOp2 flags are reset, meaning:
-                -pressing any digit clears this result
-                -any new digits are saved into the cleared op1
+                    -Pressing any digit clears this result
+                    -Any new digits are saved into the cleared op1
         OR
 
         2. The user wants to use this result --> press any operator
-                -this result is saved in op1
+                -This result is saved in op1
                 -firstDigit and workingWithOp2 flags are reset BUT pressing 
                  any operator will set workingWithOp2 back to true so that 
                  new input is saved into op2, with this result in op1
@@ -84,11 +84,11 @@ function calculateAndDisplayResult() {
 function backSpaceDigit() {
     let operand = workingWithOp2 ? op2 : op1;
     if (operand.length > 1) {
-        // remove last/rightmost character from the string
+        // Remove last/rightmost character from the string
         operand = operand.slice(0, -1);
         console.log("SLICE: " + operand);
     } else {
-        // Note: not touching workingWithOp2 here, either operand can be
+        // Not touching workingWithOp2 here, either operand can be
         // backspaced to 0 without affecting anything else
         operand = "0";
         firstDigit = true;
