@@ -46,6 +46,19 @@ function saveAndDisplayDigit(digit) {
     digitDisplay.textContent = operand;
 }
 
+function saveAndDisplayDot() {
+    let operand = workingWithOp2 ? op2 : op1;
+    if (!operand.includes(".")) {
+        operand += ".";
+    }
+    if (!workingWithOp2) {
+        op1 = operand;
+    } else {
+        op2 = operand;
+    }
+    digitDisplay.textContent = operand;
+}
+
 function divideByZero() {
     op1 = "0";
     operand = "+";
@@ -154,6 +167,4 @@ const switchSignBtn = document.getElementById("+/-");
 switchSignBtn.addEventListener(('click'), () => switchSign());
 
 const dotBtn = document.getElementById(".");
-
-
-
+dotBtn.addEventListener(('click'), () => saveAndDisplayDot()); 
