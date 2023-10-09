@@ -43,6 +43,7 @@ function saveAndDisplayDigit(digit) {
     } else {
         op2 = operand;
     }
+    operand = roundNumbersWithLongDecimals(+operand);
     digitDisplay.textContent = operand;
 }
 
@@ -56,6 +57,7 @@ function saveAndDisplayDot() {
     } else {
         op2 = operand;
     }
+    operand = roundNumbersWithLongDecimals(+operand);
     digitDisplay.textContent = operand;
 }
 
@@ -91,6 +93,7 @@ function calculateAndDisplayResult() {
     op1 = result.toString();
     firstDigit = true;
     workingWithOp2 = false;
+    result = roundNumbersWithLongDecimals(result);
     digitDisplay.textContent = result;
 }
 
@@ -111,6 +114,7 @@ function backSpaceDigit() {
     } else {
         op2 = operand;
     }
+    operand = roundNumbersWithLongDecimals(+operand);
     digitDisplay.textContent = operand;
 }
 
@@ -122,7 +126,16 @@ function switchSign() {
     } else {
         op2 = operand;
     }
+    operand = roundNumbersWithLongDecimals(operand);
     digitDisplay.textContent = operand;
+}
+
+function roundNumbersWithLongDecimals(number) {
+    if (number.toString().length > 10) {
+        console.log(+(number.toFixed(10)));
+        return +(number.toFixed(10));
+    }
+    return number
 }
 
 let op1 = "0";
