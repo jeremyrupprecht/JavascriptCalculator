@@ -43,7 +43,7 @@ function saveAndDisplayDigit(digit) {
     } else {
         op2 = operand;
     }
-    operand = roundNumbersWithLongDecimals(+operand);
+    operand = roundNumbersWithLongDecimals(operand);
     digitDisplay.textContent = operand;
 }
 
@@ -57,7 +57,7 @@ function saveAndDisplayDot() {
     } else {
         op2 = operand;
     }
-    operand = roundNumbersWithLongDecimals(+operand);
+    operand = roundNumbersWithLongDecimals(operand);
     digitDisplay.textContent = operand;
 }
 
@@ -114,7 +114,7 @@ function backSpaceDigit() {
     } else {
         op2 = operand;
     }
-    operand = roundNumbersWithLongDecimals(+operand);
+    operand = roundNumbersWithLongDecimals(operand);
     digitDisplay.textContent = operand;
 }
 
@@ -130,12 +130,25 @@ function switchSign() {
     digitDisplay.textContent = operand;
 }
 
-function roundNumbersWithLongDecimals(number) {
-    if (number.toString().length > 10) {
-        console.log(+(number.toFixed(10)));
-        return +(number.toFixed(10));
+function roundNumbersWithLongDecimals(numberToRound) {
+    if (numberToRound.toString().length > 10) {
+        let roundedNumber = Number(numberToRound).toPrecision(9);
+        let roundedString = roundedNumber.toString();
+        const indexOfe = roundedString.indexOf("e");
+        /* There are 2 cases, (case 1) either the string version of the number is 
+        large or small enough to be written using e notation OR (case 2) the 
+        number isn't large or small enough to be written using e notation
+        and e won't be included in the string (which affects the slice 
+        calculation) */
+        if (indexOfe !== -1) {
+            // Return the number without its four rightmost digits, that are 
+            // not part of the e notation
+            return roundedString.slice(0, indexOfe - 4) 
+                   + roundedString.slice(indexOfe);
+        } 
+        return roundedString.slice(0, roundedString.length - 4);
     }
-    return number
+    return numberToRound
 }
 
 let op1 = "0";
